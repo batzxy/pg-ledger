@@ -1,0 +1,26 @@
+# Use postgres/example user/password credentials
+services:
+
+  db:
+    image: postgres:17
+    restart: always
+    container_name: db
+    # set shared memory limit when using docker-compose
+    shm_size: 128mb
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: example
+    # requires postgres to be exposed for Grafana to connect
+    #ports:
+    #  - 5432:5432
+
+  adminer:
+    image: adminer
+    restart: always
+    container_name: admin_panel
+    ports:
+      - 8080:8080
+
+volumes:
+  pgdata:    
